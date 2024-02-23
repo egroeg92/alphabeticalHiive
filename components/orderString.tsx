@@ -1,6 +1,5 @@
 import React, { useState, useCallback } from "react";
-import styles from "@/styles/orderString.module.css";
-import { Card, CardBody, Box, Text, Grid, GridItem, Stack, StackDivider, Link, Input, Button, TagLabel, Checkbox } from "@chakra-ui/react";
+import { Card, CardBody, Box, Text, Stack, StackDivider, Link, Input, Button, TagLabel, Checkbox } from "@chakra-ui/react";
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 
 export default function OrderString(){
@@ -26,12 +25,12 @@ export default function OrderString(){
         setMessage('');
 
         return true;
-    }, [orderAlphabet, input]);
+    }, [orderAlphabet]);
     
     const handleOrderAlphabetChange = useCallback(( input: string) => {
         setOrderAlphabet(input.toLowerCase());
         checkOrderAlphabet();
-    }, [checkOrderAlphabet, orderAlphabet]);
+    }, [checkOrderAlphabet,]);
 
 
 
@@ -100,8 +99,13 @@ export default function OrderString(){
             });
 
             let stringSetOrderedIndicies = Object.keys(stringSet).sort((a,b) => {
-                if(orderAlphabet.toLowerCase().indexOf(stringSet[Number(a)].toLowerCase()) < orderAlphabet.toLowerCase().indexOf(stringSet[Number(b)].toLowerCase())) return -1;
-                if(orderAlphabet.toLowerCase().indexOf(stringSet[Number(a)].toLowerCase()) > orderAlphabet.toLowerCase().indexOf(stringSet[Number(b)].toLowerCase())) return 1;
+                if(orderAlphabet.indexOf(stringSet[Number(a)].toLowerCase()) == orderAlphabet.indexOf(stringSet[Number(b)].toLowerCase())){
+                    if(stringSet[Number(a)] < stringSet[Number(b)]) return -1;
+                    if(stringSet[Number(a)] > stringSet[Number(b)]) return 1;
+                    return 0;
+                }
+                if(orderAlphabet.indexOf(stringSet[Number(a)].toLowerCase()) < orderAlphabet.indexOf(stringSet[Number(b)].toLowerCase())) return -1;
+                if(orderAlphabet.indexOf(stringSet[Number(a)].toLowerCase()) > orderAlphabet.indexOf(stringSet[Number(b)].toLowerCase())) return 1;
                 return 0;
             });
             return stringSetOrderedIndicies.map((index)=>stringSet[Number(index)]).join('');
@@ -121,7 +125,7 @@ export default function OrderString(){
         }else if(key === 'case-sensitive'){
             orderStringDefaultCaseSensitive();
         }
-    }, [useOrderAlphabet, orderAlphabet, input, orderStringDefaultUseAlphabet, orderStringDefault, orderStringDefaultCaseSensitive]);
+    }, [useOrderAlphabet, orderStringDefaultUseAlphabet, orderStringDefault, orderStringDefaultCaseSensitive]);
 
 
 
