@@ -2,26 +2,15 @@ import React, { useState, useCallback } from "react";
 import styles from "@/styles/orderString.module.css";
 
 
-
 export default function OrderString(){
+
+    // states
     const [orderAlphabet, setOrderAlphabet ] = useState<string>("abcdefghijklmnopqrstuvwxyz");
     const [message, setMessage ] = useState<string>("");
-    
     const [input, setInput ] = useState<string>("");
     const [output, setOutput] = useState<string>("");
-
     const [useOrderAlphabet, setUseOrderAlphabet] = useState<boolean>(false);
     
-    const orderString = useCallback((key: string) =>{
-        
-        if(useOrderAlphabet){
-            orderStringDefaultUseAlphabet(key === 'default');
-        }else if(key === 'default'){
-           orderStringDefault();
-        }else if(key === 'case-sensitive'){
-            orderStringDefaultCaseSensitive();
-        }
-    }, [input, orderAlphabet, useOrderAlphabet]);
 
     // Convert String to lowercase,
     // split words into an array (by comma)
@@ -119,6 +108,18 @@ export default function OrderString(){
 
         return true;
     }, [orderAlphabet, input]);
+    
+    // factory
+    const orderString = useCallback((key: string) => {
+        if(useOrderAlphabet){
+            orderStringDefaultUseAlphabet(key === 'default');
+        }else if(key === 'default'){
+            orderStringDefault();
+        }else if(key === 'case-sensitive'){
+            orderStringDefaultCaseSensitive();
+        }
+    }, [useOrderAlphabet, orderAlphabet, input, orderStringDefaultUseAlphabet, orderStringDefault, orderStringDefaultCaseSensitive]);
+
 
 
     return(
@@ -168,7 +169,7 @@ export default function OrderString(){
             <div>
                 <h5>Problem Description</h5>
                 <p>
-                    We need to alphabetically order a string. For example, given the input "HiiveIsLive", the output "eehiiiilsvv" is produced.
+                    We need to alphabetically order a string. For example, given the input &ldquo;HiiveIsLive&ldquo;, the output &ldquo;eehiiiilsvv&ldquo; is produced.
                 </p>
                 <p>
                     We need to further extend the function to take a second input which is a custom alphabet. The input should be an ordered list of all 26 characters in any order. The function should use this alphabet for ordering the input string.
