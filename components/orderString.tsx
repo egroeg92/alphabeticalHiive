@@ -168,7 +168,7 @@ export default function OrderString(){
             <div>
                 <h5>Problem Description</h5>
                 <p>
-                    We need to alphabetically order a string. For example, given the input “HiiveIsLive", the output “eehiiiilsvv" is produced.
+                    We need to alphabetically order a string. For example, given the input "HiiveIsLive", the output "eehiiiilsvv" is produced.
                 </p>
                 <p>
                     We need to further extend the function to take a second input which is a custom alphabet. The input should be an ordered list of all 26 characters in any order. The function should use this alphabet for ordering the input string.
@@ -191,7 +191,6 @@ export default function OrderString(){
                     <a href='https://github.com/egroeg92/alphabeticalHiive' target='_blank'>Source Code</a>
                 </p>
             </div>
-
 
         </div>
     )
