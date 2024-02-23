@@ -3,9 +3,10 @@
 # install
 
 npm install
+
 npm run dev
 
-open up localhost:3000 
+open up localhost:3000 in browser
 
 # URL
 https://alphabetical-hiive.vercel.app/
