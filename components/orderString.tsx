@@ -165,15 +165,15 @@ export default function OrderString(){
                 <Box>
                     <Stack spacing={6} >
                         <Box sx={{display:'flex', justifyContent:'center', width:'100%'}}>
-                            <Text fontSize={'xl'} fontWeight="bold">String ReOrderer</Text>
+                            <Text fontSize={'xl'} fontWeight="bold">String Reorderer</Text>
                         </Box>
 
                         {/* Text Input */}
                         <Box sx={{display:'flex', justifyContent:'center', width:'100%'}}>
                             <Box sx={{display:'flex', width:'min(100%, 300px)', alignContent:'flex-start', flexDirection:'column'}} >
                                 <Text fontSize='sm'>Input</Text>
-                                <Text fontSize='xs' sx={{ fontStyle:'italic', paddingRight:'5px'}}>for multiple strings seperate by coma </Text>
-                                <Text fontSize='xs' sx={{ fontStyle:'italic', paddingRight:'5px'}}>ex. hiive, monkey = ehiiv, ekmnoy</Text>
+                                <Text fontSize='xs' sx={{ fontStyle:'italic', paddingRight:'5px'}}>for multiple strings, seperate by comma </Text>
+                                <Text fontSize='xs' sx={{ fontStyle:'italic', paddingRight:'5px'}}>E.g. hiive, monkey = ehiiv, ekmnoy</Text>
                                 <Input type="text" value={input} width='100%' onChange={(e)=>handleChangeInput(e.target.value)} id="orderStringInput" placeholder="Enter a string" >
                                 </Input>
                                 <Box sx={{display:'flex', flexWrap:'wrap', justifyContent:'center', width:'100%', }}> 
@@ -199,12 +199,12 @@ export default function OrderString(){
                             </Box>
                         </Box>
 
-                        {/* checkbox */}
+                        {/* switch */}
                         <Box sx={{display:'flex', justifyContent:'center', width:'100%'}}>
                             <Box sx={{display:'flex', width:'min(100%, 300px)', alignContent:'flex-start', flexDirection:'column'}} >
                                 <Box display='flex'>
                                     <Switch id='useAlphabetSwitch' checked={useOrderAlphabet} onChange={()=>setUseOrderAlphabet(!useOrderAlphabet)} sx={{pr:2, cursor:'pointer'}}/>
-                                    <Text fontSize='xs' fontStyle={'italic'}>Custom Order Alphabet (part2)</Text>
+                                    <Text fontSize='xs' fontStyle={'italic'}>Custom Order Alphabet (part 2)</Text>
                                 </Box>
                             </Box>
                         </Box>
@@ -295,13 +295,13 @@ export default function OrderString(){
                             The input box is for the string to be ordered.
                         </Text>
                         <Text as ='p'>
-                            The checkbox activates the <i>custom order alphabet</i>, and when reorder is pressed - it will now be reordered based on the input of the <i>custom order alphabet</i>. 
+                            The switch activates the <i>custom order alphabet</i>, and when reorder is pressed - it will now be reordered based on the input of the <i>custom order alphabet</i>. 
                         </Text>
                         <Text as ='p'>
                             Next is the second input, the <i>custom order alphabet</i>. The program requires the <i>custom order alphabet</i> to have exactly 1 of every character in the English alphabet.
                         </Text>
                         <Text as ='p'>
-                            Extras : <b>Case sensitive ordering</b>: the output will consider case. <b>Multiple Input</b>: multiple strings can be processed at once (input the words seperated by comas).
+                            Extras : <b>Case sensitive ordering</b>: the output will consider case. <b>Multiple Input</b>: multiple strings can be processed at once (input the words seperated by commas).
                         </Text>
                     </Box>
                 </Box>
