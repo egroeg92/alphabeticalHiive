@@ -11,6 +11,26 @@ export default function OrderString(){
     const [output, setOutput] = useState<string>("");
     const [useOrderAlphabet, setUseOrderAlphabet] = useState<boolean>(false);
     
+    const handleOrderAlphabetChange = useCallback(( input: string) => {
+        setOrderAlphabet(input.toLowerCase());
+        checkOrderAlphabet();
+    }, [orderAlphabet]);
+
+    const checkOrderAlphabet = useCallback(() => {  
+        if(orderAlphabet.length !== 26){
+            setMessage("Order Alphabet must have one of each letter of the alphabet.")
+            setOutput('');
+            return false;
+        }else if(orderAlphabet.toLowerCase().split('').sort().join('') !== "abcdefghijklmnopqrstuvwxyz"){
+            setMessage("Order Alphabet must have one of each letter of the alphabet.")
+            setOutput('');
+            return false;
+        }
+        setMessage('');
+
+        return true;
+    }, [orderAlphabet, input]);
+
 
     // Convert String to lowercase,
     // split words into an array (by comma)
@@ -85,28 +105,8 @@ export default function OrderString(){
         });
         setOutput(output.join(', '));
 
-    }, [input, orderAlphabet]);
+    }, [input, orderAlphabet, checkOrderAlphabet]);
 
-
-    const handleOrderAlphabetChange = useCallback(( input: string) => {
-        setOrderAlphabet(input.toLowerCase());
-        checkOrderAlphabet();
-    }, [orderAlphabet]);
-
-    const checkOrderAlphabet = useCallback(() => {  
-        if(orderAlphabet.length !== 26){
-            setMessage("Order Alphabet must have one of each letter of the alphabet.")
-            setOutput('');
-            return false;
-        }else if(orderAlphabet.toLowerCase().split('').sort().join('') !== "abcdefghijklmnopqrstuvwxyz"){
-            setMessage("Order Alphabet must have one of each letter of the alphabet.")
-            setOutput('');
-            return false;
-        }
-        setMessage('');
-
-        return true;
-    }, [orderAlphabet, input]);
     
     // factory
     const orderString = useCallback((key: string) => {
