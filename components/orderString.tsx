@@ -1,6 +1,9 @@
 import React, { useState, useCallback } from "react";
-import { Card, CardBody, Box, Text, Stack, StackDivider, Link, Input, Button, TagLabel, Checkbox } from "@chakra-ui/react";
+import { Card, CardBody, Box, Text, Stack, StackDivider, Tag, TagLabel, Input, Button, Switch, Tooltip } from "@chakra-ui/react";
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import { ExternalLinkIcon } from '@chakra-ui/icons';
+import { TagCloseButton } from "@chakra-ui/react";
+import NextLink from "next/link"
 
 export default function OrderString(){
 
@@ -10,7 +13,7 @@ export default function OrderString(){
     const [input, setInput ] = useState<string>("");
     const [output, setOutput] = useState<string>("");
     const [useOrderAlphabet, setUseOrderAlphabet] = useState<boolean>(false);
-    
+    const [useCaseSensitive, setUseCaseSensitive] = useState<boolean>(false);
 
     const checkOrderAlphabet = useCallback((input: string ) => {  
 
@@ -81,14 +84,13 @@ export default function OrderString(){
     
     }, [input]);
 
-
     // Similar to above, but uses orderAlphabet to sort the characters (rather than the stringSet)
     // orderAlphabet only uses lowercase
-    const orderStringDefaultUseAlphabet = useCallback((toLowerCase:boolean) => {  
+    const orderStringDefaultUseAlphabet = useCallback(() => {  
         
         if(checkOrderAlphabet(orderAlphabet) == false) return;
 
-        const arr = toLowerCase ? input.toLowerCase().split(",") : input.split(",");
+        const arr = !useCaseSensitive ? input.toLowerCase().split(",") : input.split(",");
         const output = arr.map((string)=>{
             const stringSet: {[key: number]: string} = {};
             const stringArray = string.split("");
@@ -110,20 +112,23 @@ export default function OrderString(){
             
         });
         setOutput(output.join(', '));
+    }, [input, useCaseSensitive, orderAlphabet, checkOrderAlphabet]);
 
-    }, [input, orderAlphabet, checkOrderAlphabet]);
-
+    const handleRemoveWord = useCallback((word: string) => {
+        const newInput = input.split(',').filter((item)=>item !== word).join(',');
+        setInput(newInput);
+    }, [input]);
     
     // factory
-    const orderString = useCallback((key: string) => {
+    const orderString = useCallback(() => {
         if(useOrderAlphabet){
-            orderStringDefaultUseAlphabet(key === 'default');
-        }else if(key === 'default'){
+            orderStringDefaultUseAlphabet();
+        }else if(!useCaseSensitive){
             orderStringDefault();
-        }else if(key === 'case-sensitive'){
+        }else{
             orderStringDefaultCaseSensitive();
         }
-    }, [useOrderAlphabet, orderStringDefaultUseAlphabet, orderStringDefault, orderStringDefaultCaseSensitive]);
+    }, [useOrderAlphabet, useCaseSensitive, orderStringDefaultUseAlphabet, orderStringDefault, orderStringDefaultCaseSensitive]);
 
 
 
@@ -140,8 +145,31 @@ export default function OrderString(){
                         {/* Text Input */}
                         <Box sx={{display:'flex', justifyContent:'center', width:'100%'}}>
                             <Box sx={{display:'flex', width:'min(100%, 300px)', alignContent:'flex-start', flexDirection:'column'}} >
-                                <Text fontSize='xs' sx={{ fontStyle:'italic', paddingRight:'5px'}}>Input - for multiple strings seperate by coma </Text>
-                                <Input type="text" value={input} width='100%' onChange={(e)=>setInput(e.target.value)} id="orderStringInput" placeholder="Enter a string" />
+                                <Text fontSize='sm'>Input</Text>
+                                <Text fontSize='xs' sx={{ fontStyle:'italic', paddingRight:'5px'}}>for multiple strings seperate by coma </Text>
+                                <Text fontSize='xs' sx={{ fontStyle:'italic', paddingRight:'5px'}}>ex. hiive, monkey = ehiiv, ekmnoy</Text>
+                                <Input type="text" value={input} width='100%' onChange={(e)=>setInput(e.target.value)} id="orderStringInput" placeholder="Enter a string" >
+                                </Input>
+                                <Box sx={{display:'flex', flexWrap:'wrap', justifyContent:'center', width:'100%', }}> 
+                                {
+                                    input?.length > 0 && input.split(',').map((word, index) => {
+                                        return(
+                                        <Tag
+                                            key={index}
+                                            borderRadius='full'
+                                            variant='solid'
+                                            colorScheme='green'
+                                            width='fit-content'
+                                            m='4px 4px'
+                                            >
+                                            <TagLabel>{word}</TagLabel>
+                                            <TagCloseButton onClick={()=>handleRemoveWord(word)}/>
+                                        </Tag>)
+                                    })
+                                }
+                                </Box>
+                                        
+                                
                             </Box>
                         </Box>
 
@@ -149,33 +177,31 @@ export default function OrderString(){
                         <Box sx={{display:'flex', justifyContent:'center', width:'100%'}}>
                             <Box sx={{display:'flex', width:'min(100%, 300px)', alignContent:'flex-start', flexDirection:'column'}} >
                                 <Box display='flex'>
-                                    <Checkbox id='useAlphabetSwitch' checked={useOrderAlphabet} onChange={()=>setUseOrderAlphabet(!useOrderAlphabet)} sx={{pr:2, cursor:'pointer'}}/>
+                                    <Switch id='useAlphabetSwitch' checked={useOrderAlphabet} onChange={()=>setUseOrderAlphabet(!useOrderAlphabet)} sx={{pr:2, cursor:'pointer'}}/>
                                     <Text fontSize='xs' fontStyle={'italic'}>Custom Order Alphabet (part2)</Text>
                                 </Box>
-
                             </Box>
                         </Box>
 
                         {/* order alphabet input */}
                         <Box sx={{display:'flex', justifyContent:'center', width:'100%'}}>
 
-                            <Box sx={{display:'flex', width:'min(100%, 300px)', alignContent:'flex-start', flexDirection:'column', 
-                                    opacity: useOrderAlphabet ? 1 : 0.4,
-                                    pointerEvents: useOrderAlphabet ? 'all' : 'none'}} >
-
+                            <Box sx={{display:'flex', width:'min(100%, 300px)', alignContent:'flex-start', flexDirection:'column',  opacity: useOrderAlphabet ? 1 : 0.4, pointerEvents: useOrderAlphabet ? 'all' : 'none'}} >
                                 <Box>
-                                    <Text fontSize='xs' fontStyle={'italic'}>Order Alphabet</Text>
+                                    <Text fontSize='xs' fontStyle={'italic'}>Custom Order Alphabet</Text>
                                 </Box>
                             
                                 <Box display={'flex'}>
                                     <Input type="text" width='min(100%, 300px)' value={orderAlphabet} onChange={(e)=>handleOrderAlphabetChange(e.target.value)} id="orderAlphabetInput"  />
-                                    <Button onClick={() => {
-                                        setOrderAlphabet('abcdefghijklmnopqrstuvwxyz');
-                                        setOutput('');
-                                        setMessage('');
-                                    }} >
-                                        <RestartAltIcon sx={{p:0 ,marginEnd:0, marginInlineEnd:0, display:'flex', justifyContent:'center'}}/>
-                                    </Button>
+                                    <Tooltip label="Custom Order Alphabet" aria-label="Reset Alphabet">
+                                        <Button onClick={() => {
+                                            setOrderAlphabet('abcdefghijklmnopqrstuvwxyz');
+                                            setOutput('');
+                                            setMessage('');
+                                        }} >
+                                            <RestartAltIcon sx={{p:0 ,marginEnd:0, marginInlineEnd:0, display:'flex', justifyContent:'center'}}/>
+                                        </Button>
+                                    </Tooltip>
                                 </Box>
                                 {message?.length > 0 && <Text sx={{color:'red',}}>{message}</Text>}
                             </Box>
@@ -184,17 +210,42 @@ export default function OrderString(){
                         {/* submit buttons */}
                         <Box sx={{display:'flex', justifyContent:'center', width:'100%'}}>
                             <Box sx={{display:'flex', width:'min(100%, 300px)', alignContent:'flex-start', flexDirection:'column'}}>
-                                <Button onClick={() => orderString('default')} style={{marginRight:'5px'}}>Reorder</Button>
-                                <Button onClick={() => orderString('case-sensitive')} >Reorder (case sensitive)</Button>
+                                <Box sx={{display : 'flex'}}> 
+                                    <Switch id='useAlphabetSwitch' checked={useCaseSensitive} onChange={()=>setUseCaseSensitive(!useCaseSensitive)} sx={{pr:2, cursor:'pointer'}}/>
+                                    <Text fontSize='xs' fontStyle={'italic'}>Case Sensitive</Text>
+                                </Box>
+                                <Button onClick={() => orderString()} style={{marginRight:'5px'}}>Reorder</Button>
                             </Box>
                         </Box>
 
                         <Box sx={{display:'flex', justifyContent:'center', width:'100%'}}>
-                            <Box sx={{display:'flex', width:'min(100%, 300px)', alignContent:'flex-start', flexDirection:'column'}}>
-                                <Box as='span' >
-                                    <Text as='span'>Output : </Text>
-                                    <Text as='span' fontSize={'4xl'}>{output} </Text>
+                            <Box>
+                                <Text fontSize='sm'>Output </Text>
+
+                                <Box as='span' sx={{ 
+                                    border: '1px solid', 
+                                    padding: '2rem 3rem',
+                                    borderRadius: '5px',
+                                    display:'flex', 
+                                    width:'fit-content', 
+                                    maxWidth: '500px',
+                                    minWidth:'300px',
+                                    // alignContent:'flex-start', 
+                                    }}>
+                                        <Box sx={{display:'flex', flexWrap:'wrap', justifyContent:'center', width:'100%', }}> 
+                                        {output?.length > 0 && 
+                                            output.split(',').map((word, index) => {
+                                                return(
+                                                    <Tag key={index} width='fit-content' p={'1rem 1.5rem'} m={1}>
+                                                        <TagLabel><Text as='span' fontSize={'2xl'}>{word}</Text></TagLabel>
+                                                    </Tag>
+                                                )
+                                            })
+                                        }
+                                    </Box>
+
                                 </Box>
+
                             </Box>
                         </Box>
                     </Stack>
@@ -215,21 +266,25 @@ export default function OrderString(){
                     <Box>
                         <Text fontSize='lg' fontWeight={'semibold'}>Solution Description</Text>
                         <Text as ='p'>
-                            The input box is for the string to be ordered. The first button orders the string in a case-insensitive manner. The second button orders the string in a case-sensitive manner.
+                            The input box is for the string to be ordered.
                         </Text>
                         <Text as ='p'>
-                            The checkbox enables the second input for part 2. 
+                            The checkbox activates the <i>custom order alphabet</i>, and when reorder is pressed - it will now be reordered based on the input of the <i>custom order alphabet</i>. 
                         </Text>
                         <Text as ='p'>
-                            The second input is the custom alphabet. The second input is a string of 26 characters, each character is a letter of the alphabet. The second input is used to order the string.
+                            Next is the second input, the <i>custom order alphabet</i>. The program requires the <i>custom order alphabet</i> to have exactly 1 of every character in the English alphabet.
                         </Text>
                         <Text as ='p'>
-                            Extras : Case sensitive ordering, and multiple words can be ordered at once (input the words seperated by coma).
+                            Extras : <b>Case sensitive ordering</b>: the output will consider case. <b>Multiple Input</b>: multiple strings can be processed at once (input the words seperated by comas).
                         </Text>
                     </Box>
                 </Box>
                 <Box display='flex' justifyContent={'center'}>
-                    <Link fontSize='sm' href='https://github.com/egroeg92/alphabeticalHiive' isExternal>Source Code</Link>
+                    <NextLink href='https://github.com/egroeg92/alphabeticalHiive' target='_blank' passHref>
+                        <Button variant='solid' colorScheme='teal'>
+                            Source Code <ExternalLinkIcon mx={2}/>
+                        </Button>
+                    </NextLink>
                 </Box>
             </Stack>
         </CardBody>

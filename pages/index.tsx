@@ -1,16 +1,11 @@
 import Head from "next/head";
 import OrderString from "@/components/orderString";
-import { Text, Container, Grid, GridItem, useColorMode } from "@chakra-ui/react";
-
+import { Text, Container, Grid, GridItem, Link } from "@chakra-ui/react";
+import { ChatIcon } from '@chakra-ui/icons'
 
 
 export default function Home() {
   
-  const { colorMode } = useColorMode()
-
-
-
-
   return (
     <>
       <Head>
@@ -29,7 +24,7 @@ export default function Home() {
               <Text textAlign={{base:"center", md:'start'}} fontSize={{base:'1.5rem', md:'2rem'}}>Junior Engineer at Hiive Technical&nbsp;Interview</Text>
             </GridItem>
             <GridItem colSpan={{base:12, md:3}} display={'flex'} alignItems={'flex-end'} justifyContent={{base:'center', md:'flex-end'}}>
-              <Text >George Macrae</Text>
+              <Link href='mailto:grgmacrae@gmail.com'>George Macrae<ChatIcon ml={1}/></Link>
             </GridItem>
             <GridItem colSpan={{base:12, md:3}} display={'flex'} alignItems={'flex-end'} justifyContent={{base:'center', md:'flex-end'}}>
               <Text >2024-2-22</Text>
