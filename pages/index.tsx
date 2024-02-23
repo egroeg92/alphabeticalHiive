@@ -1,11 +1,16 @@
 import Head from "next/head";
-import { Inter } from "next/font/google";
-import styles from "@/styles/Home.module.css";
 import OrderString from "@/components/orderString";
+import { Text, Container, Grid, GridItem, useColorMode } from "@chakra-ui/react";
 
-const inter = Inter({ subsets: ["latin"] });
+
 
 export default function Home() {
+  
+  const { colorMode } = useColorMode()
+
+
+
+
   return (
     <>
       <Head>
@@ -17,18 +22,23 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
-      <main className={inter.className}>
-        <div className={styles.container}>
-
-          <div className={styles.headerContainer}>
-              <h1 className={styles.title}>Junior Engineer at Hiive Technical Interview</h1>
-              <h3 className={styles.subtitle}>George Macrae</h3>
-              <h3 className={styles.subtitle}>2024-2-22</h3>
-          </div>
+      <main >
+        <Container maxW="container.lg" py={5}> 
+          <Grid templateColumns='repeat(12, 1fr)' pb={10}>
+            <GridItem colSpan={{base:12, md:6}} display={'flex'} alignItems={'flex-end'} justifyContent={{base:'center', md:'flex-end'}}>
+              <Text textAlign={{base:"center", md:'start'}} fontSize={{base:'1.5rem', md:'2rem'}}>Junior Engineer at Hiive Technical&nbsp;Interview</Text>
+            </GridItem>
+            <GridItem colSpan={{base:12, md:3}} display={'flex'} alignItems={'flex-end'} justifyContent={{base:'center', md:'flex-end'}}>
+              <Text >George Macrae</Text>
+            </GridItem>
+            <GridItem colSpan={{base:12, md:3}} display={'flex'} alignItems={'flex-end'} justifyContent={{base:'center', md:'flex-end'}}>
+              <Text >2024-2-22</Text>
+            </GridItem >  
+          </Grid>
 
           <OrderString />
-          
-        </div>
+            
+        </Container>
 
       </main>
     </>

@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from "react";
 import styles from "@/styles/orderString.module.css";
-
+import { Card, CardBody, Box, Text, Grid, GridItem, Stack, StackDivider, Link, Input, Button, TagLabel, Checkbox } from "@chakra-ui/react";
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
 
 export default function OrderString(){
 
@@ -33,7 +34,7 @@ export default function OrderString(){
     }, [checkOrderAlphabet, orderAlphabet]);
 
 
-    
+
 
     // Convert String to lowercase,
     // split words into an array (by comma)
@@ -125,76 +126,112 @@ export default function OrderString(){
 
 
     return(
-        <div>
-            <div className={styles.solutionContainer}>
-                <div style={{display:'block'}}>
+        <Card><CardBody>
+            <Stack divider = {<StackDivider/>} spacing={6}>
+                <Box>
+                    <Stack spacing={6} >
+                        <Box sx={{display:'flex', justifyContent:'center', width:'100%'}}>
+                            <Text fontSize={'xl'} fontWeight="bold">String ReOrderer</Text>
+                        </Box>
 
-                    <div className={styles.row}>
-                        <div>
-                            <label htmlFor="orderStringInput" style={{fontSize:'12px', paddingRight:'5px'}}><i>Input - for multiple strings seperate by coma </i></label>
-                        </div>
-                        <input type="text" value={input} onChange={(e)=>setInput(e.target.value)} id="orderStringInput" placeholder="Enter a string" />
-                    </div>
+                        {/* Text Input */}
+                        <Box sx={{display:'flex', justifyContent:'center', width:'100%'}}>
+                            <Box sx={{display:'flex', width:'min(100%, 300px)', alignContent:'flex-start', flexDirection:'column'}} >
+                                <Text fontSize='xs' sx={{ fontStyle:'italic', paddingRight:'5px'}}>Input - for multiple strings seperate by coma </Text>
+                                <Input type="text" value={input} width='100%' onChange={(e)=>setInput(e.target.value)} id="orderStringInput" placeholder="Enter a string" />
+                            </Box>
+                        </Box>
 
-                    <div className={styles.row} >
-                        <input id='useAlphabetSwitch' type="checkbox" checked={useOrderAlphabet} onChange={()=>setUseOrderAlphabet(!useOrderAlphabet)} style={{cursor:'pointer'}}/>
-                        <label htmlFor="useAlphabetSwitch" style={{fontSize:'12px', paddingRight:'5px'}}><i>Custom Order Alphabet (part2)</i></label>
-                    </div>
-                    {
-                        useOrderAlphabet &&
-                        <div className={styles.row}>
-                            <div>
-                                <label htmlFor="orderAlphabetInput" style={{fontSize:'12px', paddingRight:'5px'}}><i>Order Alphabet</i></label>
-                            </div>
-                            <div>
-                                <input type="text" value={orderAlphabet} onChange={(e)=>handleOrderAlphabetChange(e.target.value)} id="orderAlphabetInput" style={{marginRight:'5px'}} />
-                                <button onClick={() => {
-                                    setOrderAlphabet('abcdefghijklmnopqrstuvwxyz');
-                                    setMessage('');
-                                }} style={{marginRight:'5px'}}>reset</button>
-                            </div>
-                            {message?.length > 0 && <div style={{color:'red', fontSize:'12px'}}>{message}</div>}
-                        </div>
-                    }
+                        {/* checkbox */}
+                        <Box sx={{display:'flex', justifyContent:'center', width:'100%'}}>
+                            <Box sx={{display:'flex', width:'min(100%, 300px)', alignContent:'flex-start', flexDirection:'column'}} >
+                                <Box display='flex'>
+                                    <Checkbox id='useAlphabetSwitch' checked={useOrderAlphabet} onChange={()=>setUseOrderAlphabet(!useOrderAlphabet)} sx={{pr:2, cursor:'pointer'}}/>
+                                    <Text fontSize='xs' fontStyle={'italic'}>Custom Order Alphabet (part2)</Text>
+                                </Box>
 
-                    <div className={styles.row}>
-                        <button onClick={() => orderString('default')} style={{marginRight:'5px'}}>order</button>
-                        <button onClick={() => orderString('case-sensitive')} >order (case sensitive)</button>
-                    </div>
+                            </Box>
+                        </Box>
 
-                    <div style={{padding:'10px 0px'}}>
-                        Output : {output}
-                    </div>
-                </div>
-            </div>
+                        {/* order alphabet input */}
+                        <Box sx={{display:'flex', justifyContent:'center', width:'100%'}}>
 
-            <div>
-                <h5>Problem Description</h5>
-                <p>
-                    We need to alphabetically order a string. For example, given the input &ldquo;HiiveIsLive&ldquo;, the output &ldquo;eehiiiilsvv&ldquo; is produced.
-                </p>
-                <p>
-                    We need to further extend the function to take a second input which is a custom alphabet. The input should be an ordered list of all 26 characters in any order. The function should use this alphabet for ordering the input string.
-                </p>
+                            <Box sx={{display:'flex', width:'min(100%, 300px)', alignContent:'flex-start', flexDirection:'column', 
+                                    opacity: useOrderAlphabet ? 1 : 0.4,
+                                    pointerEvents: useOrderAlphabet ? 'all' : 'none'}} >
 
-                <h5>Solution Description</h5>
-                <p>
-                    The input box is for the string to be ordered. The first button orders the string in a case-insensitive manner. The second button orders the string in a case-sensitive manner.
-                </p>
-                <p>
-                    The checkbox enables the second input for part 2. 
-                </p>
-                <p>
-                    The second input is the custom alphabet. The second input is a string of 26 characters, each character is a letter of the alphabet. The second input is used to order the string.
-                </p>
-                <p>
-                    Extras : Case sensitive ordering, and multiple words can be ordered at once (input the words seperated by coma).
-                </p>
-                <p>
-                    <a href='https://github.com/egroeg92/alphabeticalHiive' target='_blank'>Source Code</a>
-                </p>
-            </div>
+                                <Box>
+                                    <Text fontSize='xs' fontStyle={'italic'}>Order Alphabet</Text>
+                                </Box>
+                            
+                                <Box display={'flex'}>
+                                    <Input type="text" width='min(100%, 300px)' value={orderAlphabet} onChange={(e)=>handleOrderAlphabetChange(e.target.value)} id="orderAlphabetInput"  />
+                                    <Button onClick={() => {
+                                        setOrderAlphabet('abcdefghijklmnopqrstuvwxyz');
+                                        setMessage('');
+                                    }} >
+                                        <RestartAltIcon sx={{p:0 ,marginEnd:0, marginInlineEnd:0, display:'flex', justifyContent:'center'}}/>
+                                    </Button>
+                                </Box>
+                                {message?.length > 0 && <Text sx={{color:'red',}}>{message}</Text>}
+                            </Box>
+                        </Box>
 
-        </div>
+                        {/* submit buttons */}
+                        <Box sx={{display:'flex', justifyContent:'center', width:'100%'}}>
+                            <Box sx={{display:'flex', width:'min(100%, 300px)', alignContent:'flex-start', flexDirection:'column'}}>
+                                <Button onClick={() => orderString('default')} style={{marginRight:'5px'}}>Reorder</Button>
+                                <Button onClick={() => orderString('case-sensitive')} >Reorder (case sensitive)</Button>
+                            </Box>
+                        </Box>
+
+                        <Box sx={{display:'flex', justifyContent:'center', width:'100%'}}>
+                            <Box sx={{display:'flex', width:'min(100%, 300px)', alignContent:'flex-start', flexDirection:'column'}}>
+                                <Box as='span' >
+                                    <Text as='span'>Output : </Text>
+                                    <Text as='span' fontSize={'4xl'}>{output} </Text>
+                                </Box>
+                            </Box>
+                        </Box>
+                    </Stack>
+                </Box>
+                
+                <Box display={'flex'} justifyContent={{base:'flex-start', md:'center'}}>
+                    <Box>
+                        <Text fontSize='lg' fontWeight={'semibold'}>Problem Description</Text>
+                        <Text as ='p'>
+                            We need to alphabetically order a string. For example, given the input &ldquo;HiiveIsLive&ldquo;, the output &ldquo;eehiiiilsvv&ldquo; is produced.
+                        </Text>
+                        <Text as ='p'>
+                            We need to further extend the function to take a second input which is a custom alphabet. The input should be an ordered list of all 26 characters in any order. The function should use this alphabet for ordering the input string.
+                        </Text>
+                    </Box>
+                </Box>
+                <Box display={'flex'} justifyContent={{base:'flex-start', md:'center'}}>
+                    <Box>
+                        <Text fontSize='lg' fontWeight={'semibold'}>Solution Description</Text>
+                        <Text as ='p'>
+                            The input box is for the string to be ordered. The first button orders the string in a case-insensitive manner. The second button orders the string in a case-sensitive manner.
+                        </Text>
+                        <Text as ='p'>
+                            The checkbox enables the second input for part 2. 
+                        </Text>
+                        <Text as ='p'>
+                            The second input is the custom alphabet. The second input is a string of 26 characters, each character is a letter of the alphabet. The second input is used to order the string.
+                        </Text>
+                        <Text as ='p'>
+                            Extras : Case sensitive ordering, and multiple words can be ordered at once (input the words seperated by coma).
+                        </Text>
+                    </Box>
+                </Box>
+                <Box display='flex' justifyContent={'center'}>
+                    <Link fontSize='sm' href='https://github.com/egroeg92/alphabeticalHiive' isExternal>Source Code</Link>
+                </Box>
+                </Stack>
+
+            </CardBody>
+
+        
+        </Card>
     )
 }
