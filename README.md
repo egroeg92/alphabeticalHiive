@@ -1,4 +1,4 @@
-# alphabeticalHiive
+# Hiive - technical interview
 
 # install
 
