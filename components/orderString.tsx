@@ -301,7 +301,7 @@ export default function OrderString(){
                             Next is the second input, the <i>custom order alphabet</i>. The program requires the <i>custom order alphabet</i> to have exactly 1 of every character in the English alphabet.
                         </Text>
                         <Text as ='p'>
-                            Extras : <b>Case sensitive ordering</b>: the output will consider case. <b>Multiple Input</b>: multiple strings can be processed at once (input the words seperated by commas).
+                            Extras : <b>Case sensitive ordering</b>: the output will consider case. <b>Multiple Input</b>: multiple strings can be processed at once (input the words separated by commas).
                         </Text>
                     </Box>
                 </Box>
