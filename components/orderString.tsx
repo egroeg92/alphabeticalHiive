@@ -11,10 +11,6 @@ export default function OrderString(){
     const [output, setOutput] = useState<string>("");
     const [useOrderAlphabet, setUseOrderAlphabet] = useState<boolean>(false);
     
-    const handleOrderAlphabetChange = useCallback(( input: string) => {
-        setOrderAlphabet(input.toLowerCase());
-        checkOrderAlphabet();
-    }, [orderAlphabet]);
 
     const checkOrderAlphabet = useCallback(() => {  
         if(orderAlphabet.length !== 26){
@@ -30,7 +26,11 @@ export default function OrderString(){
 
         return true;
     }, [orderAlphabet, input]);
-
+    
+    const handleOrderAlphabetChange = useCallback(( input: string) => {
+        setOrderAlphabet(input.toLowerCase());
+        checkOrderAlphabet();
+    }, [checkOrderAlphabet, orderAlphabet]);
 
     // Convert String to lowercase,
     // split words into an array (by comma)
