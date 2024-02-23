@@ -21,11 +21,11 @@ We need to further extend the function to take a second input which is a custom 
 
 Solution Description
     
-The input box is for the string to be ordered. The first button orders the string in a case-insensitive manner. The second button orders the string in a case-sensitive manner.
+The input box is for the string to be ordered.
     
-The checkbox enables the second input for part 2. 
+The switch activates the <i>custom order alphabet</i>, and when reorder is pressed - it will now be reordered based on the input of the <i>custom order alphabet</i>. 
     
-The second input is the custom alphabet. The second input is a string of 26 characters, each character is a letter of the alphabet. The second input is used to order the string.
+Next is the second input, the <i>custom order alphabet</i>. The program requires the <i>custom order alphabet</i> to have exactly 1 of every character in the English alphabet.
     
-Extras : Case sensitive ordering, and multiple words can be ordered at once (input the words seperated by coma).
+Extras : <b>Case sensitive ordering</b>: the output will consider case. <b>Multiple Input</b>: multiple strings can be processed at once (input the words separated by commas).
     
