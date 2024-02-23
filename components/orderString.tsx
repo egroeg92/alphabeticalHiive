@@ -219,7 +219,7 @@ export default function OrderString(){
                             
                                 <Box display={'flex'}>
                                     <Input type="text" width='min(100%, 300px)' value={orderAlphabet} onChange={(e)=>handleOrderAlphabetChange(e.target.value)} id="orderAlphabetInput"  />
-                                    <Tooltip label="Custom Order Alphabet" aria-label="Reset Alphabet">
+                                    <Tooltip label="reset custom order alphabet to abcdefghijklmnopqrstuvwxyz" aria-label="Reset Alphabet">
                                         <Button onClick={() => {
                                             setOrderAlphabet('abcdefghijklmnopqrstuvwxyz');
                                             setOutput('');
