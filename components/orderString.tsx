@@ -126,6 +126,7 @@ export default function OrderString(){
         <div>
             <div className={styles.solutionContainer}>
                 <div style={{display:'block'}}>
+
                     <div className={styles.row}>
                         <div>
                             <label htmlFor="orderStringInput" style={{fontSize:'12px', paddingRight:'5px'}}><i>Input - for multiple strings seperate by coma </i></label>
@@ -142,7 +143,6 @@ export default function OrderString(){
                             </div>
                             <div>
                                 <input type="text" value={orderAlphabet} onChange={(e)=>handleOrderAlphabetChange(e.target.value)} id="orderAlphabetInput" style={{marginRight:'5px'}} />
-                        
                                 <button onClick={() => {
                                     setOrderAlphabet('abcdefghijklmnopqrstuvwxyz');
                                     setMessage('');
@@ -174,7 +174,7 @@ export default function OrderString(){
 
                 <h5>Solution Description</h5>
                 <p>
-                    The input box is for the string to be ordered. The first button orders the string in a case insensitive manner. The second button orders the string in a case sensitive manner.
+                    The input box is for the string to be ordered. The first button orders the string in a case-insensitive manner. The second button orders the string in a case-sensitive manner.
                 </p>
                 <p>
                     The checkbox enables the second input for part 2. 
