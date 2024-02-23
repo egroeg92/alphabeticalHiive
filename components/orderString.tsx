@@ -12,27 +12,25 @@ export default function OrderString(){
     const [useOrderAlphabet, setUseOrderAlphabet] = useState<boolean>(false);
     
 
-    const checkOrderAlphabet = useCallback(() => {  
-        if(orderAlphabet.length !== 26){
+    const checkOrderAlphabet = useCallback((input: string ) => {  
+
+        if(input?.length !== 26){
             setMessage("Order Alphabet must have one of each letter of the alphabet.")
             setOutput('');
             return false;
-        }else if(orderAlphabet.toLowerCase().split('').sort().join('') !== "abcdefghijklmnopqrstuvwxyz"){
+        }else if(input?.toLowerCase().split('').sort().join('') !== "abcdefghijklmnopqrstuvwxyz"){
             setMessage("Order Alphabet must have one of each letter of the alphabet.")
             setOutput('');
             return false;
         }
         setMessage('');
-
         return true;
-    }, [orderAlphabet]);
+    }, []);
     
     const handleOrderAlphabetChange = useCallback(( input: string) => {
         setOrderAlphabet(input.toLowerCase());
-        checkOrderAlphabet();
-    }, [checkOrderAlphabet,]);
-
-
+        checkOrderAlphabet(input.toLowerCase());
+    }, [checkOrderAlphabet]);
 
 
     // Convert String to lowercase,
@@ -88,7 +86,7 @@ export default function OrderString(){
     // orderAlphabet only uses lowercase
     const orderStringDefaultUseAlphabet = useCallback((toLowerCase:boolean) => {  
         
-        if(checkOrderAlphabet() == false) return;
+        if(checkOrderAlphabet(orderAlphabet) == false) return;
 
         const arr = toLowerCase ? input.toLowerCase().split(",") : input.split(",");
         const output = arr.map((string)=>{
@@ -130,7 +128,8 @@ export default function OrderString(){
 
 
     return(
-        <Card><CardBody>
+    <Card>
+        <CardBody>
             <Stack divider = {<StackDivider/>} spacing={6}>
                 <Box>
                     <Stack spacing={6} >
@@ -231,11 +230,10 @@ export default function OrderString(){
                 <Box display='flex' justifyContent={'center'}>
                     <Link fontSize='sm' href='https://github.com/egroeg92/alphabeticalHiive' isExternal>Source Code</Link>
                 </Box>
-                </Stack>
-
-            </CardBody>
+            </Stack>
+        </CardBody>
 
         
-        </Card>
+    </Card>
     )
 }
