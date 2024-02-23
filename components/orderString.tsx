@@ -32,6 +32,9 @@ export default function OrderString(){
         checkOrderAlphabet();
     }, [checkOrderAlphabet, orderAlphabet]);
 
+
+    
+
     // Convert String to lowercase,
     // split words into an array (by comma)
     // sort each word
