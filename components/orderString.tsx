@@ -115,9 +115,35 @@ export default function OrderString(){
     }, [input, useCaseSensitive, orderAlphabet, checkOrderAlphabet]);
 
     const handleRemoveWord = useCallback((word: string) => {
-        const newInput = input.split(',').filter((item)=>item !== word).join(',');
+        let index = 0;
+        const newInput = input.split(',').filter((item, i)=>{
+            if(item === word){
+                index = i;
+                return false;
+            }else{
+                return true;
+            }
+        }).join(',');
+
+        const newOutput = output.split(',').filter((item, i)=>{
+            if(i === index){
+                return false;
+            }else{
+                return true;
+            }
+        }).join(',');
+
+
+        setOutput(newOutput);
         setInput(newInput);
-    }, [input]);
+    }, [input, output]);
+
+    const handleChangeInput = useCallback((input: string) => {
+        setInput(input);
+        if(output?.length > 0){
+            setOutput('');
+        }
+    }, [output, input]);
     
     // factory
     const orderString = useCallback(() => {
@@ -148,7 +174,7 @@ export default function OrderString(){
                                 <Text fontSize='sm'>Input</Text>
                                 <Text fontSize='xs' sx={{ fontStyle:'italic', paddingRight:'5px'}}>for multiple strings seperate by coma </Text>
                                 <Text fontSize='xs' sx={{ fontStyle:'italic', paddingRight:'5px'}}>ex. hiive, monkey = ehiiv, ekmnoy</Text>
-                                <Input type="text" value={input} width='100%' onChange={(e)=>setInput(e.target.value)} id="orderStringInput" placeholder="Enter a string" >
+                                <Input type="text" value={input} width='100%' onChange={(e)=>handleChangeInput(e.target.value)} id="orderStringInput" placeholder="Enter a string" >
                                 </Input>
                                 <Box sx={{display:'flex', flexWrap:'wrap', justifyContent:'center', width:'100%', }}> 
                                 {
