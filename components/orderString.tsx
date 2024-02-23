@@ -171,6 +171,7 @@ export default function OrderString(){
                                     <Input type="text" width='min(100%, 300px)' value={orderAlphabet} onChange={(e)=>handleOrderAlphabetChange(e.target.value)} id="orderAlphabetInput"  />
                                     <Button onClick={() => {
                                         setOrderAlphabet('abcdefghijklmnopqrstuvwxyz');
+                                        setOutput('');
                                         setMessage('');
                                     }} >
                                         <RestartAltIcon sx={{p:0 ,marginEnd:0, marginInlineEnd:0, display:'flex', justifyContent:'center'}}/>
