@@ -133,10 +133,7 @@ export default function OrderString(){
                         <input type="text" value={input} onChange={(e)=>setInput(e.target.value)} id="orderStringInput" placeholder="Enter a string" />
                     </div>
 
-                    <div className={styles.row} style={{display:'flex', alignItems:'center'}}>
-                        <input id='useAlphabetSwitch' type="checkbox" value={useOrderAlphabet} onChange={()=>setUseOrderAlphabet(!useOrderAlphabet)}/>
-                        <label htmlFor='useAlphabetSwitch' style={{fontSize:'12px', paddingRight:'5px'}}><i>Use Order Alphabet (part 2)</i></label>
-                    </div>
+                    <input id='useAlphabetSwitch' type="checkbox" checked={useOrderAlphabet} onChange={()=>setUseOrderAlphabet(!useOrderAlphabet)}/>
                     {
                         useOrderAlphabet &&
                         <div className={styles.row}>
