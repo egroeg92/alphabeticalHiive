@@ -133,8 +133,11 @@ export default function OrderString(){
                         </div>
                         <input type="text" value={input} onChange={(e)=>setInput(e.target.value)} id="orderStringInput" placeholder="Enter a string" />
                     </div>
-
-                    <input id='useAlphabetSwitch' type="checkbox" checked={useOrderAlphabet} onChange={()=>setUseOrderAlphabet(!useOrderAlphabet)}/>
+                    
+                    <div className={styles.row} >
+                        <input id='useAlphabetSwitch' type="checkbox" checked={useOrderAlphabet} onChange={()=>setUseOrderAlphabet(!useOrderAlphabet)} style={{cursor:'pointer'}}/>
+                        <label htmlFor="useAlphabetSwitch" style={{fontSize:'12px', paddingRight:'5px'}}><i>Custom Order Alphabet (part2)</i></label>
+                    </div>
                     {
                         useOrderAlphabet &&
                         <div className={styles.row}>
@@ -146,15 +149,15 @@ export default function OrderString(){
                                 <button onClick={() => {
                                     setOrderAlphabet('abcdefghijklmnopqrstuvwxyz');
                                     setMessage('');
-                                }} style={{cursor:'pointer', marginRight:'5px'}}>reset</button>
+                                }} style={{marginRight:'5px'}}>reset</button>
                             </div>
                             {message?.length > 0 && <div style={{color:'red', fontSize:'12px'}}>{message}</div>}
                         </div>
                     }
 
                     <div className={styles.row}>
-                        <button onClick={() => orderString('default')} style={{cursor:'pointer', marginRight:'5px'}}>Order</button>
-                        <button onClick={() => orderString('case-sensitive')} style={{cursor:'pointer'}}>Order (case sensitive)</button>
+                        <button onClick={() => orderString('default')} style={{marginRight:'5px'}}>Order</button>
+                        <button onClick={() => orderString('case-sensitive')} >Order (case sensitive)</button>
                     </div>
 
                     <div style={{padding:'10px 0px'}}>

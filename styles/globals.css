@@ -10,6 +10,11 @@
 p{
   max-width: 500px;
 }
+button{
+  cursor: pointer;
+  
+
+}
 
 a {
 }
