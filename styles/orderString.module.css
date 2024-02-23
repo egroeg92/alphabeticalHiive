@@ -1,0 +1,11 @@
+.row{
+    margin-bottom: 10px;
+}
+.solutionContainer{
+    display: flex;
+    border : 1px solid gray;
+    padding: 10px;
+    width:fit-content;
+    justify-content: center;
+    align-items: center;
+  }

@@ -1,0 +1,21 @@
+:root {
+ 
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+  }
+}
+
+p{
+  max-width: 500px;
+}
+
+a {
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}

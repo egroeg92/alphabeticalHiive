@@ -1,0 +1,22 @@
+.container{
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 0px 5rem;
+}
+.subtitle{
+  display:flex;
+  justify-content:flex-end;
+}
+.grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.headerContainer{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
