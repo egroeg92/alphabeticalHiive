@@ -4,7 +4,9 @@
 .solutionContainer{
     display: flex;
     border : 1px solid gray;
-    padding: 10px;
+    border-radius: 5px;
+    padding: 3rem 2rem;
+
     width:fit-content;
     justify-content: center;
     align-items: center;

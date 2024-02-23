@@ -16,18 +16,14 @@ export default function Home() {
         <meta name="date" content="2024-2-22" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      
-      <main className={`${styles.main} ${inter.className}`}>
+
+      <main className={inter.className}>
         <div className={styles.container}>
 
-          <div className={`${styles.grid} ${styles.headerContainer}`}>
-            <div>
+          <div className={styles.headerContainer}>
               <h1 className={styles.title}>Junior Engineer at Hiive Technical Interview</h1>
-            </div>
-            <div >
               <h3 className={styles.subtitle}>George Macrae</h3>
               <h3 className={styles.subtitle}>2024-2-22</h3>
-            </div>
           </div>
 
           <OrderString />

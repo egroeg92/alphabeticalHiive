@@ -94,7 +94,6 @@ export default function OrderString(){
     }, [orderAlphabet]);
 
     const checkOrderAlphabet = useCallback(() => {  
-        console.log(input)
         if(orderAlphabet.length !== 26){
             setMessage("Order Alphabet must have one of each letter of the alphabet.")
             setOutput('');
@@ -133,7 +132,7 @@ export default function OrderString(){
                         </div>
                         <input type="text" value={input} onChange={(e)=>setInput(e.target.value)} id="orderStringInput" placeholder="Enter a string" />
                     </div>
-                    
+
                     <div className={styles.row} >
                         <input id='useAlphabetSwitch' type="checkbox" checked={useOrderAlphabet} onChange={()=>setUseOrderAlphabet(!useOrderAlphabet)} style={{cursor:'pointer'}}/>
                         <label htmlFor="useAlphabetSwitch" style={{fontSize:'12px', paddingRight:'5px'}}><i>Custom Order Alphabet (part2)</i></label>
@@ -156,8 +155,8 @@ export default function OrderString(){
                     }
 
                     <div className={styles.row}>
-                        <button onClick={() => orderString('default')} style={{marginRight:'5px'}}>Order</button>
-                        <button onClick={() => orderString('case-sensitive')} >Order (case sensitive)</button>
+                        <button onClick={() => orderString('default')} style={{marginRight:'5px'}}>order</button>
+                        <button onClick={() => orderString('case-sensitive')} >order (case sensitive)</button>
                     </div>
 
                     <div style={{padding:'10px 0px'}}>

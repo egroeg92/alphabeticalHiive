@@ -1,22 +1,23 @@
 .container{
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  padding: 0px 5rem;
+  padding: 0px 5rem; 
+  @media screen and (max-width: 768px) {
+    padding: 0px 1rem;
+  }
 }
 .subtitle{
   display:flex;
-  justify-content:flex-end;
-}
-.grid{
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
+  /* justify-content:flex-end; */
 }
 
+
 .headerContainer{
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
+  display: block;
+  padding: 0 0 3rem 0;
+  @media screen and (max-width: 768px) {
+    padding: 0 0 1em 0;
+  }
+
 }
 
