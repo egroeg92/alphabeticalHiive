@@ -2,6 +2,8 @@
 
 # install
 
+Node.js version >= v18.17.0 is required
+
 npm install
 
 npm run dev
