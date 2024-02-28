@@ -1,4 +1,5 @@
 # Hiive - technical interview
+Solution is in components/orderString.tsx
 
 # install
 
@@ -10,10 +11,15 @@ npm run dev
 
 open up localhost:3000 in browser
 
+enter inputs into prompt and hit 'reorder'
+hit switch to extend the function to use the custom alphabet
+
 # URL
 https://alphabetical-hiive.vercel.app/
 
 # description
+
+
 
 Problem Description
     
